@@ -1,0 +1,3 @@
+C:/Users/aircr/OneDrive/Desktop/College/CPP/cmake-build-debug/CMakeFiles/CPP.dir
+C:/Users/aircr/OneDrive/Desktop/College/CPP/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/aircr/OneDrive/Desktop/College/CPP/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/aircr/OneDrive/Desktop/College/CPP/main.cpp
+iostream
+-
+algorithm
+-
+vector
+-
+cmath
+-
+list
+-
+
