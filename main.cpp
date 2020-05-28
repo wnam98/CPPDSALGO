@@ -50,6 +50,18 @@ public:
         printUtil(root, ans, 0, pow(2, d) - 1, 0);
         return ans;
     }
+
+    void moveZeroes(vector<int>& nums){
+        int count = 0;
+        for(int i = 0; i < nums.size(); i++){
+            if(nums.at(i) != 0){
+                nums.at(count++) = nums.at(i);
+            }
+            while(count > nums.size()){
+                nums.at(count++) = 0;
+            }
+        }
+    }
 };
 
 class graph {
@@ -105,5 +117,9 @@ int main(){
     gdfs.addEdge(4, 4);
     cout << "DFS traversal of the following graph \n";
     gdfs.DFS();
+
+    Solution sol;
+    vector<int> zeroes = {1,0,0,2,3,4};
+    sol.moveZeroes(zeroes);
     return 0;
 }
