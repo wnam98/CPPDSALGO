@@ -97,6 +97,7 @@ public:
         adjList[v].push_back(w);
     }
     void DFS(); //calling the traversal function
+    void BFS(int key);
 };
 
 void graph::DFS_helper(int v, bool visited[]){
@@ -123,6 +124,31 @@ void graph::DFS(){
     }
 }
 
+void graph::BFS(int s){
+    bool *visited = new bool[V];
+    for(int i = 0; i < V; i++){
+        visited[i] = false;
+    }
+    list<int> queue;
+    visited[s] = true;
+    queue.push_back(s);
+    list<int>::iterator i;
+
+    while(!queue.empty()){
+        s = queue.front();
+        cout << s << " ";
+        queue.pop_front();
+
+        for(i = adjList[s].begin(); i != adjList[s].end(); i++){
+            if(!visited[*i]){
+                visited[*i] = true;
+                queue.push_back(*i);
+            }
+        }
+    }
+}
+
+
 int main(){
     graph gdfs(5);
     gdfs.addEdge(0, 1);
@@ -134,6 +160,9 @@ int main(){
     gdfs.addEdge(4, 4);
     cout << "DFS traversal of the following graph \n";
     gdfs.DFS();
+    cout << "\n";
+    cout << "BFS traversal starting from vertex 2 \n";
+    gdfs.BFS(2);
 
     Solution sol;
     vector<int> zeroes = {1,0,0,2,3,4};
