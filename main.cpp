@@ -79,6 +79,20 @@ public:
         }
         return dp[m - 1][n - 1];
     }
+
+    void insertionSort(int arr[], int n){
+        int i, key, j;
+        for(i = 1; i < n; i++){
+            key = arr[i];
+            j = i - 1;
+
+            while(j >= 0 && arr[j] > key){
+                arr[j + 1] = arr[j];
+                j--;
+                arr[j + 1] = key;
+            }
+        }
+    }
 };
 
 class graph {
@@ -168,5 +182,12 @@ int main(){
     Solution sol;
     vector<int> zeroes = {1,0,0,2,3,4};
     sol.moveZeroes(zeroes);
+
+    int arr[] = {4,3,6,1,7,2,9};
+    int n = 7;
+    sol.insertionSort(arr, n);
+    for (const auto& e : arr) {
+        cout << e << endl;
+    }
     return 0;
 }
