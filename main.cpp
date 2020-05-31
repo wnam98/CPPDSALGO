@@ -161,8 +161,9 @@ int main(){
     cout << "DFS traversal of the following graph \n";
     gdfs.DFS();
     cout << "\n";
-    cout << "BFS traversal starting from vertex 2 \n";
-    gdfs.BFS(2);
+    int vertex = 0;
+    cout << "BFS traversal starting from vertex: " << vertex << "\n";
+    gdfs.BFS(vertex);
 
     Solution sol;
     vector<int> zeroes = {1,0,0,2,3,4};
