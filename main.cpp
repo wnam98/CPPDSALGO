@@ -93,6 +93,19 @@ public:
             }
         }
     }
+
+    int numTrees(int n){
+        int BST[n + 2];
+        BST[0] = 1;
+        BST[1] = 1;
+
+        for(int i = 2; i <= n; i++){
+            BST[i] = 0;
+            for(int j = 0; j < i; j++){
+                BST[i] += BST[j] * BST[i - j - 1];
+            }
+        }return BST[n];
+    }
 };
 
 class graph {
