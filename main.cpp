@@ -106,6 +106,22 @@ public:
             }
         }return BST[n];
     }
+
+    int searchInsert(vector<int>& nums, int target){
+        if(target > nums.at(nums.size() - 1)) return nums.size();
+        int l = 0;
+        int r = nums.size() - 1;
+
+        while(l < r){
+            int m = l + (r - l)/2;
+            if(target > nums.at(m)){
+                l = m + 1;
+            }else{
+                r = m;
+            }
+        }
+        return l;
+    }
 };
 
 class graph {
