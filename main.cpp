@@ -51,6 +51,14 @@ public:
         return ans;
     }
 
+    bool isValidBST(TreeNode* root, long min = LONG_MIN, long max = LONG_MAX){
+        if(!root) return true;
+        if(root -> val <= min || root -> val >= max) return false;
+        return isValidBST(root -> left, min, root -> val) && isValidBST(root -> right, root -> val, max);
+    }
+
+
+//End of tree questions
     void moveZeroes(vector<int>& nums){
         int count = 0;
         for(int i = 0; i < nums.size(); i++){
