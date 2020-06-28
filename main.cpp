@@ -57,6 +57,46 @@ public:
         return isValidBST(root -> left, min, root -> val) && isValidBST(root -> right, root -> val, max);
     }
 
+    int numTrees(int n){
+        int BST[n + 2];
+        BST[0] = 1;
+        BST[1] = 1;
+
+        for(int i = 2; i <= n; i++){
+            BST[i] = 0;
+            for(int j = 0; j < i; j++){
+                BST[i] += BST[j] * BST[i - j - 1];
+            }
+        }return BST[n];
+    }
+
+    int searchInsert(vector<int>& nums, int target){
+        if(target > nums.at(nums.size() - 1)) return nums.size();
+        int l = 0;
+        int r = nums.size() - 1;
+
+        while(l < r){
+            int m = l + (r - l)/2;
+            if(target > nums.at(m)){
+                l = m + 1;
+            }else{
+                r = m;
+            }
+        }
+        return l;
+    }
+    //sum root to leaf leetcode challenge
+    int helper(TreeNode* root, int sum){
+        if(root == NULL) return 0;
+        sum = sum*10 + root -> val;
+        if(root -> left == NULL && root -> right == NULL){
+            return sum;
+        }
+        return helper(root -> left, sum) + helper(root -> right, sum);
+    }
+    int sumNumbers(TreeNode* root) {
+        return helper(root, 0);
+    }
 
 //End of tree questions
     void moveZeroes(vector<int>& nums){
@@ -102,46 +142,18 @@ public:
         }
     }
 
-    int numTrees(int n){
-        int BST[n + 2];
-        BST[0] = 1;
-        BST[1] = 1;
+    //coin change dp problem
+    int change(int amount, vector<int>& coins) {
+        vector<int> dp(amount + 1);
+        dp.at(0) = 1;
 
-        for(int i = 2; i <= n; i++){
-            BST[i] = 0;
-            for(int j = 0; j < i; j++){
-                BST[i] += BST[j] * BST[i - j - 1];
+        for(int coin: coins){
+            for(int i = coin; i <= amount; i++){
+                dp.at(i) += dp.at(i - coin);
             }
-        }return BST[n];
+        }return dp.at(amount);
     }
 
-    int searchInsert(vector<int>& nums, int target){
-        if(target > nums.at(nums.size() - 1)) return nums.size();
-        int l = 0;
-        int r = nums.size() - 1;
-
-        while(l < r){
-            int m = l + (r - l)/2;
-            if(target > nums.at(m)){
-                l = m + 1;
-            }else{
-                r = m;
-            }
-        }
-        return l;
-    }
-    //sum root to leaf leetcode challenge
-    int helper(TreeNode* root, int sum){
-        if(root == NULL) return 0;
-        sum = sum*10 + root -> val;
-        if(root -> left == NULL && root -> right == NULL){
-            return sum;
-        }
-        return helper(root -> left, sum) + helper(root -> right, sum);
-    }
-    int sumNumbers(TreeNode* root) {
-        return helper(root, 0);
-    }
 };
 
 class graph {
