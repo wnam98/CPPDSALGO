@@ -8,6 +8,69 @@
 
 using namespace std;
 
+class Node {
+public:
+    Node(): last_char(false), child(vector<Node*>(26, nullptr)) {}
+    bool last_char;
+    vector<Node*> child;
+};
+
+class Trie {
+public:
+    Trie(int n, int m): vis(vector<vector<bool>>(n, vector<bool>(m, false))), root(new Node()) {
+    }
+    ~Trie() {
+        del_tree(root);
+    }
+    void insert(const string &s) {
+        Node* cur_node = root;
+        for (int i = 0; i < s.size(); ++i) {
+            if (cur_node->child[s[i] - 'a'] == nullptr) {
+                cur_node->child[s[i] - 'a'] = new Node();
+            }
+            cur_node = cur_node->child[s[i] - 'a'];
+            if (i == s.size() - 1) cur_node->last_char = true;
+        }
+    }
+    void grid_search(const vector<vector<char>>& board, int i, int j, vector<string>& ret) {
+        if (root->child[board[i][j] - 'a'] == nullptr) return ;
+        Node* cur_node = root->child[board[i][j] - 'a'];
+        string cur_str;
+        dfs(board, i, j, ret, cur_node, cur_str);
+    }
+private:
+    void dfs(const vector<vector<char>>& board, int i, int j, vector<string>& ret, Node* cur_node,
+             string& cur_str) {
+        vis[i][j] = true;
+        cur_str.push_back(board[i][j]);
+        if (cur_node->last_char) {
+            ret.push_back(cur_str);
+            cur_node->last_char = false;
+        }
+        for (int k = 0; k < 4; ++k) {
+            int new_i = i + di[k], new_j = j + dj[k];
+            if (new_i >= 0 && new_i < board.size() && new_j >= 0 && new_j < board[0].size()
+                && !vis[new_i][new_j]
+                && cur_node->child[board[new_i][new_j] - 'a'] != nullptr) {
+                dfs(board, new_i, new_j, ret, cur_node->child[board[new_i][new_j] - 'a'],
+                    cur_str);
+            }
+        }
+        vis[i][j] = false;
+        cur_str.pop_back();
+    }
+    void del_tree(Node* node) {
+        for (int i = 0; i < 26; ++i) {
+            if (node->child[i] != nullptr) del_tree(node->child[i]);
+        }
+        delete node;
+    }
+    Node* root;
+    vector<vector<bool>> vis;
+    int di[4] = {0, 1, 0, -1}, dj[4] = {1, 0, -1, 0};
+};
+
+
 struct TreeNode{
     int val;
     TreeNode *left;
@@ -181,6 +244,21 @@ public:
         return ans;
     }
 
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string> ret;
+        if (board.size() == 0 || board[0].size() == 0 || words.size() == 0) return ret;
+        int n = board.size(), m = board[0].size();
+        Trie trie(n, m);
+        for (auto& word: words) {
+            trie.insert(word);
+        }
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                trie.grid_search(board, i, j, ret);
+            }
+        }
+        return ret;
+    }
 };
 
 class graph {
