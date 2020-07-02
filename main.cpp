@@ -80,10 +80,33 @@ struct TreeNode{
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-class ListNode{
+struct ListNode{
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
+};
+
+struct LinkedList{
+    ListNode* head;
+    LinkedList(){
+        head = NULL;
+    }
+
+    void print()
+    {
+        struct ListNode* temp = head;
+        while (temp != NULL) {
+            cout << temp->val << " ";
+            temp = temp->next;
+        }
+    }
+
+    void push(int data)
+    {
+        ListNode* temp = new ListNode(data);
+        temp->next = head;
+        head = temp;
+    }
 };
 
 class Solution{
@@ -164,6 +187,21 @@ public:
     }
 
 //End of tree questions
+
+//Reverse linkedlist
+    ListNode* reverseList(ListNode* head) {
+        ListNode* current = head;
+        ListNode *prev = NULL, *next = NULL;
+        while(current != NULL){
+            next = current -> next;
+            current -> next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+        return head;
+    }
+
     void moveZeroes(vector<int>& nums){
         int count = 0;
         for(int i = 0; i < nums.size(); i++){
@@ -366,5 +404,18 @@ int main(){
     for (const auto& e : arr) {
         cout << e << endl;
     }
+
+    //Implement reverse linkedlist
+    LinkedList ll;
+    ll.push(1);
+    ll.push(2);
+    ll.push(3);
+    ll.push(4);
+    ll.push(5);
+    cout << "Given linkedlist\n";
+    ll.print();
+    cout << "\nReversed LinkedList\n";
+    ListNode* head = ll.head;
+    sol.reverseList(head);
     return 0;
 }
