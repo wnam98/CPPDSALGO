@@ -378,6 +378,15 @@ public:
         } /*End of for loop (i=1; i<n; i++) */
         return next_ugly_no;
     }
+
+    int hammingDistance(int x, int y){
+        int count = 0;
+        while(x > 0 || y > 0){
+            count += (x % 2)^(y % 2);
+            x >>= 1;
+            y >>= 1;
+        }return count;
+    }
 };
 
 class graph {
@@ -487,5 +496,6 @@ int main(){
     cout << "\nReversed LinkedList\n";
     ListNode* head = ll.head;
     sol.reverseList(head);
+    cout << sol.hammingDistance(12,13);
     return 0;
 }
