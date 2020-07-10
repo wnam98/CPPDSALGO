@@ -18,6 +18,14 @@ public:
     vector<Node*> child;
 };
 
+class DoublyNode {
+public:
+    int val;
+    DoublyNode* prev;
+    DoublyNode* next;
+    DoublyNode* child;
+};
+
 class Trie {
 public:
     Trie(int n, int m): vis(vector<vector<bool>>(n, vector<bool>(m, false))), root(new Node()) {
@@ -459,6 +467,26 @@ public:
         }
 
         return ans;
+    }
+
+    DoublyNode* flatten(DoublyNode* head) {
+        if(!head) return NULL;
+        DoublyNode* trav = head;
+        while(trav){
+            if(trav->child){
+                DoublyNode* next = trav->next;
+                DoublyNode* child = flatten(trav->child);
+                trav->child = NULL;
+                trav->next = child;
+                child->prev = trav;
+                DoublyNode* lastNode = child;
+                while(lastNode->next) lastNode = lastNode->next;
+                lastNode->next = next;
+                if(next) next->prev = lastNode;
+            }
+            trav = trav->next;
+        }
+        return head;
     }
 };
 
