@@ -654,6 +654,25 @@ public:
         }
         return false;
     }
+
+public:
+    void fill(TreeNode * root,vector<vector<int>> & ans,int level)
+    {
+        if(!root)return;     // if null return
+        if(ans.size() <= level) // maintains appropriate array size, if not you'll get out of bounds exception
+            ans.push_back({});
+       fill(root -> left,ans,level+1); // always increment level by one as we go down the tree
+        if(level%2 == 0) // if its even, a simple inorder traversal is fine
+            ans[level].push_back(root -> val);
+        else
+            ans[level].insert(ans[level].begin(),root -> val);  // else insert the value into the front of our level
+       fill(root -> right,ans,level+1);
+    }
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+       vector<vector<int>> ans;
+       fill(root,ans,0); // level starts at 0
+       return ans;
+    }
 };
 
 class graph {
