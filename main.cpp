@@ -8,6 +8,7 @@
 #include <map>
 #include <set>
 #include <queue>
+#include <numeric>
 
 using namespace std;
 
@@ -672,6 +673,17 @@ public:
        vector<vector<int>> ans;
        fill(root,ans,0); // level starts at 0
        return ans;
+    }
+
+    vector<int> singleNumber(vector<int>& nums) {
+        int difference = accumulate(nums.begin(), nums.end(), 0, bit_xor<int>());
+        int mask = difference & - difference;
+        int x = 0, y = 0;
+        for(int num: nums){
+            if(num & mask) x ^= num;
+            else y^= num;
+        }
+        return {x,y};
     }
 };
 
