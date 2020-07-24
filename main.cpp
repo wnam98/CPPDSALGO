@@ -685,6 +685,23 @@ public:
         }
         return {x,y};
     }
+
+    vector<vector <int>> res;
+    void solve(vector < vector <int> >& graph, int node, int target, vector <int>temp){
+      temp.push_back(node);
+      if(node == target){
+         res.push_back(temp);
+         return;
+      }
+      for(int i = 0; i < graph[node].size(); i++){
+         solve(graph, graph[node][i], target, temp);
+      }
+   }
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<int> temp;
+        solve(graph, 0, graph.size() - 1, temp);
+        return res;
+    }
 };
 
 class graph {
