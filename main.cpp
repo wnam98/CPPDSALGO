@@ -702,6 +702,10 @@ public:
         solve(graph, 0, graph.size() - 1, temp);
         return res;
     }
+    int findMin(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        return nums.at(0);
+    }
 };
 
 class graph {
