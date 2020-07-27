@@ -713,6 +713,27 @@ public:
         if(mod==0) return 9;
         return mod;
     }
+
+public:
+    TreeNode* create(vector<int> inor, vector<int> post, int is, int ie, int ps, int pe){
+        if(ps>pe)
+            return NULL;
+        TreeNode* node=new TreeNode(post[pe]);
+        int k=0;
+        for(int i=is;i<=ie;i++){
+            if(inor[i]==post[pe]){
+                k=i;
+                break;
+            }
+        }
+        node->left=create(inor,post,is,k-1,ps,ps+k-is-1);
+        node->right=create(inor,post,k+1,ie,pe-ie+k,pe-1);
+        return node;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return create(inorder,postorder,0,inorder.size()-1,0,postorder.size()-1);
+    }
+
 };
 
 class graph {
