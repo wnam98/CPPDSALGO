@@ -735,6 +735,20 @@ public:
     }
 
 public:
+    int maxProfit(vector<int>& prices) {
+        int endSell = 0;
+        int endBuy = INT_MIN;
+        int prevBuy = 0, prevSell = 0;
+        for (int i = 0; i < prices.size(); i++) {
+            prevBuy = endBuy;
+            endBuy = max(endBuy, prevSell - prices[i]);
+            prevSell = endSell;
+            endSell = max(endSell, prevBuy + prices[i]);
+        }
+        return endSell;
+    }
+
+public:
     int leastInterval(vector<char>& t, int n) {
         map <char,int> m;
         for(int i =0;i<t.size();i++){
