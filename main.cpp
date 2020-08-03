@@ -866,6 +866,24 @@ public:
             if(isupper(c)) count++;
         return count == word.length() || count == 0 || count == 1 && isupper(word.at(0));
     }
+
+public:
+    bool isPalindrome(string s) {
+        int i = 0;
+        int j = s.length() - 1;
+        while(i < j){
+            while(i < j && !isalnum(s.at(i))){
+                i++;
+            }
+            while(i < j && !isalnum(s.at(j))){
+                j--;
+            }
+            if(i < j && tolower(s.at(i++)) != tolower(s.at(j--))){
+                return false;
+            }
+        }
+        return true;
+    }
 };
 
 class MyHashSet {
