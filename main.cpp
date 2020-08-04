@@ -884,6 +884,14 @@ public:
         }
         return true;
     }
+
+public:
+    float logn(int n, int r) {return log(n) / log(r);}
+
+    bool isPowerOfFour(int num) {
+        if(num == 0) return false;
+        return floor(logn(num, 4)) == ceil(logn(num, 4));
+    }
 };
 
 class MyHashSet {
