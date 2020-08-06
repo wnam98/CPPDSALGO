@@ -892,6 +892,17 @@ public:
         if(num == 0) return false;
         return floor(logn(num, 4)) == ceil(logn(num, 4));
     }
+
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> list;
+        set<int> set;
+        for(int i = 0; i < nums.size(); i++){
+            if(set.count(nums.at(i))){
+                list.push_back(nums.at(i));
+            }set.insert(nums.at(i));
+        }return list;
+    }
 };
 
 class MyHashSet {
