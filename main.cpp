@@ -932,6 +932,18 @@ public:
         dfs(map, root->left, x - 1, y + 1, maxValue, minValue);
         dfs(map, root->right, x + 1, y + 1, maxValue, minValue);
     }
+
+public:
+    int titleToNumber(string s) {
+        int result = 0;
+        for (const auto& c : s)
+        {
+            result *= 26;
+            result += c  - 'A' + 1;
+        }
+
+        return result;
+    }
 };
 
 class MyHashSet {
