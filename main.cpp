@@ -9,6 +9,7 @@
 #include <set>
 #include <queue>
 #include <numeric>
+#include <sstream>
 
 using namespace std;
 
@@ -1088,6 +1089,33 @@ public:
         vector<int> res;
         for (auto num = 1; num <= 9; ++num) dfs(num, N - 1, K, res);
         return res;
+    }
+
+public:
+    string toGoatLatin(string S) {
+        vector<char> vowels={'a','e','i','o','u','A','E','I','O','U'};
+        istringstream SS(S);
+        string word;
+        string result;
+        vector<string> split_S;
+        while(getline(SS,word,' '))
+        {
+            split_S.push_back(word);
+        }
+        for (int i=0;i<split_S.size();i++)
+        {
+            word=split_S[i];
+            if (find(vowels.begin(),vowels.end(), word[0])!=vowels.end())
+                word+="ma";
+            else
+            {
+                word=word.substr(1)+word.substr(0,1)+"ma";
+            }
+            string tmp(i+1,'a');
+            word+=tmp;
+            result+=word+" ";
+        }
+        return result.substr(0,result.size()-1);
     }
 
 };
