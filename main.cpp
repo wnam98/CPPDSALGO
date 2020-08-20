@@ -1118,6 +1118,38 @@ public:
         return result.substr(0,result.size()-1);
     }
 
+public:
+    ListNode* successor = NULL;
+    ListNode* reverse(ListNode* head, ListNode* prev = NULL){
+        if(!head)return prev;
+        ListNode* temp = head->next;
+        head->next = prev;
+        prev = head;
+        return reverse(temp, prev);
+    }
+
+    void reorderList(ListNode* head) {
+        if(!head)return;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        fast = reverse(slow->next);
+        slow->next = NULL;
+        slow = head;
+        ListNode *temp1, *temp2;
+        while(fast){
+            temp1 = slow->next;
+            temp2 = fast->next;
+            slow->next = fast;
+            fast->next = temp1;
+            slow = temp1;
+            fast = temp2;
+        }
+    }
+
 };
 
 class graph {
