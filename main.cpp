@@ -1173,6 +1173,36 @@ public:
         }
         return res;
     }
+
+public:
+    vector<int> pancakeSort(vector<int>& v) {
+        vector<int>ans;
+        map<int,int>m;
+        for(int i=0;i<v.size();i++){
+            m[v[i]]=i;
+        }
+        int j=0;
+        for(j=0;j<v.size();j++){
+            int x=m[j+1];
+            ans.push_back(x+1);
+
+            for(int i=0;i<=x/2;i++){
+                m[v[i]]=x-i;
+                m[v[x-i]]=i;
+                swap(v[i],v[x-i]);
+
+            }
+            ans.push_back(v.size()-j);
+            for(int i=0;i<(v.size()-j)/2;i++){
+                m[v[i]]=v.size()-j-1-i;
+                m[v[v.size()-j-1-i]]=i;
+                swap(v[i],v[v.size()-j-1-i]);
+
+            }
+        }
+        ans.push_back(v.size());
+        return ans;
+    }
 };
 
 class graph {
